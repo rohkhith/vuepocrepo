@@ -1,0 +1,78 @@
+{
+    "src_folders" : ["./examples/tests/ecosia.js"],
+    "output_folder" : "./custom-files/reports",
+    "custom_commands_path" : "./custom-files/custom-commands",
+    "custom_assertions_path" : "./custom-files/custom-assertions",
+    "page_objects_path" : "./custom-files/pages",
+    "globals_path" : "./examples/globalsModule.js",
+    "disable_colors": false,
+    "test_workers" : false,
+  
+    "webdriver" : {
+      "start_process": true,
+      "host": "localhost",
+      "port": 4445
+    },
+  
+    "test_settings" : {
+      "default" : {
+        "webdriver": {
+          "server_path": "./bin/chromedriver.exe",
+          "port":9516
+        },
+        "disable_colors": false,
+        "screenshots" : {
+          "enabled" : false,
+          "path" : ""
+        },
+        "request_timeout_options": {
+          "timeout": 60000,
+          "retry_attempts": 5
+        },
+        "filter": ["./examples/tests"],
+        "desiredCapabilities" : {
+          "browserName" : "chrome",
+          "acceptInsecureCerts" : false
+        }
+      },  
+      "chrome" : {
+        "webdriver": {
+          "port": 9515,
+          "default_path_prefix": "",
+          "server_path": "./bin/chromedriver.exe",
+          "cli_args": [
+            "--verbose",
+            "--whitelisted-ips='*'"
+          ]
+        },
+        "desiredCapabilities" : {
+          "browserName" : "chrome",
+          "loggingPrefs": {"driver": "INFO", "server": "OFF", "browser": "INFO"}
+        }
+      },  
+      "unit_tests" : {
+        "unit_tests_mode" : true,
+        "filter" : "./examples/unittests/*",
+        "exclude" : ""
+      },
+      "selenium_server" : {
+        "selenium" : {
+          "start_process": true,
+          "host": "localhost",
+          "port": 4445,
+          "server_path": "./bin/selenium-server-standalone.jar",
+          "cli_args": {            
+            "webdriver.chrome.driver": "./bin/chromedriver"
+          }
+        },
+  
+        "desiredCapabilities" : {
+          "browserName" : "firefox",
+          "acceptSslCerts": true
+        }
+      }
+    }
+  }
+  
+  
+  

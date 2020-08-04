@@ -5,8 +5,20 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "coverage vue-cli-service test:unit",
+    "coverage": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
+  },
+  "nyc": {
+    "instrument": false,
+    "sourceMap": false,
+    "include": [
+      "src/**/*.{js,vue}"
+    ],
+    "extension": [
+      ".js",
+      ".vue"
+    ]
   },
   "eslintConfig": {
     "root": true,
@@ -30,6 +42,9 @@
     "axios": "^0.19.2",
     "bulma": "^0.9.0",
     "core-js": "^3.6.5",
+    "coverage": "^0.4.1",
+    "selenium-server-standalone-jar": "^3.141.59",
+    "selenium-webdriver": "^4.0.0-alpha.7",
     "underscore": "^1.10.2",
     "vue": "^2.6.11"
   },
@@ -41,8 +56,11 @@
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "chai": "^4.1.2",
+    "chromedriver": "^84.0.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "geckodriver": "^1.20.0",
+    "nightwatch": "^1.3.7",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"

@@ -15,25 +15,29 @@ phases:
   
   pre_build:
     commands:
-      - apt-get update
-      - apt-get install -y jq
-      - wget http://www-eu.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-      - tar xzf apache-maven-3.5.4-bin.tar.gz
-      - ln -s apache-maven-3.5.4 maven
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
-      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
-      - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
-
+      - export SONAR_SCANNER_VERSION=4.4.0.2170
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
   build:
-    commands:   
-      - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.projectKey=$Project -Dsonar.organization=$Organization
+    commands:  
+      - echo before test cases included with test coverage
+      - npm run test:unit       
+      - echo coverage starting here
+      - sonar-scanner -Dsonar.organization=rohkhith  -Dsonar.projectKey=vuupocsonaranalyze -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=7d20972148a1fb6152cb503e06d33a426b430dc3
       - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
+      # - aws s3 cp --recursive  coverage/ "s3://sonarcoverage"
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=vuupocsonaranalyze>result.json
       - cat result.json
-      - if [ $(jq -r '.projectStatus.status' result.json) = ERROR ] ; then $CODEBUILD_BUILD_SUCCEEDING -eq 0 ;fi
-      - npm run test:unit
+      # - |-
+      #   if [ $(jq -r '.projectStatus.status' result.json) = ERROR ]; then
+      #     exit 1
+      #   fi
       - npm run build
       - aws s3 cp --recursive dist/ s3://vuepocbucket/
+       
   # artifacts:
   #   files:
   #     -  dist
