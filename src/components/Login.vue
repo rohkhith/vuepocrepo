@@ -40,7 +40,7 @@
     <span id="message" v-if="errorMessage!='' && errorMessage!=undefined" class="danger">{{errorMessage}}</span>
     <div class="columns">
       <div class="is-full">        
-        <button @click="loginFunction()" class="button is-primary">Login</button>
+        <button @click="loginFunction()" class="button submitButton is-primary">Login</button>
         <button class="button is-text">Sign Up</button>
       </div>
     </div>
@@ -59,8 +59,6 @@ export default {
    {
        MainHeader
    },
-  
- 
   data() {
     return {    
       usersList: [],
@@ -76,7 +74,19 @@ export default {
     // this.usersList=this.usersList.default;
   },
 
-  methods: {    
+  methods: {  
+    sampleCall()
+    {
+      return "hello"
+    },
+    sampleCall1()
+    {
+      return "hello"
+    },
+    sampleCall2()
+    {
+      return "hello"
+    },
     loginFunction() {
       debugger
       this.submitted = true;
@@ -89,15 +99,14 @@ export default {
       var filteredLoginObj = _.filter(this.usersList.default, function(
         element
       ) {
-        console.log(element);
         return element.userName == __self.userName;
       });
       debugger
       if (
         filteredLoginObj.length != 0 &&
         filteredLoginObj[0].userName != undefined
-      ) {
-        console.log("Here");
+      )
+      {        
         if (filteredLoginObj[0].password == this.password) {
           this.errorMessage = "Login Successful";
           return 1;

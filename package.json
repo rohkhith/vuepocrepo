@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "coverage vue-cli-service test:unit",
+    "mocha": "mocha './tests/unit/example.spec.js'",
+    "test:unit": "vue-cli-service test:unit",
+    "test:cover": "nyc --reporter=lcov --reporter=text npm run test:unit",
     "coverage": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
@@ -13,10 +15,9 @@
     "instrument": false,
     "sourceMap": false,
     "include": [
-      "src/**/*.{js,vue}"
+      "src/components/"
     ],
     "extension": [
-      ".js",
       ".vue"
     ]
   },
@@ -39,12 +40,16 @@
     }
   },
   "dependencies": {
+    "@babel/core": "^7.11.1",
     "axios": "^0.19.2",
+    "babel-plugin-istanbul": "^6.0.0",
+    "babel-polyfill": "^6.26.0",
     "bulma": "^0.9.0",
     "core-js": "^3.6.5",
     "coverage": "^0.4.1",
     "selenium-server-standalone-jar": "^3.141.59",
     "selenium-webdriver": "^4.0.0-alpha.7",
+    "sinon": "^9.0.3",
     "underscore": "^1.10.2",
     "vue": "^2.6.11"
   },
@@ -55,6 +60,7 @@
     "@vue/cli-service": "~4.4.0",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "chromedriver": "^84.0.1",
     "eslint": "^6.7.2",

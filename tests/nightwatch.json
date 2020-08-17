@@ -1,5 +1,5 @@
 {
-    "src_folders" : ["./examples/tests/ecosia.js"],
+    "src_folders" : ["./examples/tests/vueappsel.js"],
     "output_folder" : "./custom-files/reports",
     "custom_commands_path" : "./custom-files/custom-commands",
     "custom_assertions_path" : "./custom-files/custom-assertions",

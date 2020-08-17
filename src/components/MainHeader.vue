@@ -63,10 +63,17 @@
 <script>
 export default 
 {
-  // name:"MainHeader",
+  name:"MainHeader",
   data()
   {
     return {};
+  },
+  methods:
+  {
+    sampleCall1()
+    {
+      return "hello"
+    }
   }
 }
 

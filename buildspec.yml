@@ -8,10 +8,7 @@ env:
 phases:
   install:   
     commands:
-      - npm install --save
-    runtime-versions:
-      java: openjdk8
-      
+      - npm install --save 
   
   pre_build:
     commands:
@@ -24,7 +21,7 @@ phases:
   build:
     commands:  
       - echo before test cases included with test coverage
-      - npm run test:unit       
+      - npm run test:cover    
       - echo coverage starting here
       - sonar-scanner -Dsonar.organization=rohkhith  -Dsonar.projectKey=vuupocsonaranalyze -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=7d20972148a1fb6152cb503e06d33a426b430dc3
       - sleep 5
@@ -35,8 +32,8 @@ phases:
       #   if [ $(jq -r '.projectStatus.status' result.json) = ERROR ]; then
       #     exit 1
       #   fi
-      - npm run build
-      - aws s3 cp --recursive dist/ s3://vuepocbucket/
+      # - npm run build
+      # - aws s3 cp --recursive dist/ s3://vuepocbucket/
        
   # artifacts:
   #   files:
