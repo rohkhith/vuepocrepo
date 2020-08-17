@@ -9,6 +9,7 @@ phases:
   install:   
     commands:
       - npm install --save 
+      - npm install nyc --save
   
   pre_build:
     commands:
