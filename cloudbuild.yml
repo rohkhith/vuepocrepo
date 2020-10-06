@@ -1,0 +1,24 @@
+version: 0.2
+phases:
+  install:   
+    commands:
+      - npm install --save 
+      - npm install nyc --save
+  
+  pre_build:
+    commands:
+      - export SONAR_SCANNER_VERSION=4.4.0.2170
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
+  build:
+    commands:  
+      - echo before test cases included with test coverage
+      - npm run test:cover    
+      - echo coverage starting here
+      - sonar-scanner -Dsonar.organization=rohkhith  -Dsonar.projectKey=vuupocsonaranalyze -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=7d20972148a1fb6152cb503e06d33a426b430dc3
+      - sleep 5
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=vuupocsonaranalyze>result.json
+      - cat result.json      
