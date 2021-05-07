@@ -50,7 +50,7 @@
     "selenium-server-standalone-jar": "^3.141.59",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "sinon": "^9.0.3",
-    "underscore": "^1.10.2",
+    "underscore": "^1.12.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
